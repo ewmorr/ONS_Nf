@@ -3,7 +3,7 @@
 MinION was run with no base-calling. Kit LSK-109; Flow cell MIN106.  
 *All scripts run with slurm on UNH Premise*
 
-##### Base-calling with albacore  
+#### Base-calling with albacore  
 This takes a long time. ~24 h for 1,172,000 reads. 
 
 	sbatch albacore.slurm
@@ -13,7 +13,7 @@ This takes a long time. ~24 h for 1,172,000 reads.
 	grep "True" Nf1_basecalls_albacore/sequencing_summary.txt | wc -l
 	grep "False" Nf1_basecalls_albacore/sequencing_summary.txt | wc -l
 
-##### Assemble with canu.
+#### Assemble with canu.
 
 	bash canu_Nf1.sh
 
