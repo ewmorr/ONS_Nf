@@ -27,3 +27,22 @@ This runs canu on the head node. Canu assembler then calls slurm all on its own 
 #### Polish assembly with nanopolish
 
 	sbatch nanopolish.slurm
+
+
+#### Genemark-es gene prediction
+Genemark requires some perl modules that are not preinstalledo on premise. Easiest work-around is a conda environment. See conda_envs.sh.
+
+	sbatch genemark.slurm
+
+###### genemark makes a bunch of generally named output files/dirs. To avoid hunting them down could run from a dir
+Otherwise...
+	mkdir Nf_canu_run0/gnene_mark_output
+	mv info/ Nf_canu_run0/gnene_mark_output
+	mv run Nf_canu_run0/gnene_mark_output
+	mv data Nf_canu_run0/gnene_mark_output
+	mv output Nf_canu_run0/gnene_mark_output
+	mv run.cfg Nf_canu_run0/gnene_mark_output
+	mv nuc_seq.fna Nf_canu_run0/gnene_mark_output
+	mv prot_seq.faa Nf_canu_run0/gnene_mark_output
+
+The files nuc_seq.fna and prot_seq.faa contain sequences of predicted proteins.
