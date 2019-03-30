@@ -36,6 +36,7 @@ Genemark requires some perl modules that are not preinstalledo on premise. Easie
 
 ###### genemark makes a bunch of generally named output files/dirs. To avoid hunting them down could run from a dir
 Otherwise...
+
 	mkdir Nf_canu_run0/gnene_mark_output
 	mv info/ Nf_canu_run0/gnene_mark_output
 	mv run Nf_canu_run0/gnene_mark_output
