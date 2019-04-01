@@ -10,7 +10,7 @@ module load anaconda/colsa
 
 {
 #genemark perl env
-conda create --name genemark-perl --clone template
+conda create --name genemark-perl perl perl-app-cpanminus
 source activate genemark-perl
 #if cpan needs configure at run proceed with auto-configuration
 cpan YAML
