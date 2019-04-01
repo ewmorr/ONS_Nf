@@ -8,7 +8,7 @@ This takes a long time. ~24 h for 1,172,000 reads.
 
 	sbatch albacore.slurm
 
-*Success rate of base calling from albacore was 82.05%.*
+*Success rate of base calling from albacore was 82.05% (of reads).*
 
 	grep "True" Nf1_basecalls_albacore/sequencing_summary.txt | wc -l
 	grep "False" Nf1_basecalls_albacore/sequencing_summary.txt | wc -l
@@ -17,7 +17,7 @@ This takes a long time. ~24 h for 1,172,000 reads.
 
 	bash canu_Nf1.sh
 
-This runs canu on the head node. Canu assembler then calls slurm all on its own (*neat*). If it is trying to suck up too many resources (and then waiting forever in the queue and/or being greedy) can limit avaialble resources using 'gridOptions="<option>"' flag. For this assembly majority jobs ran on less than 8 CPUs and 40 G memory (45 Mb estimated genome size, 2.9 Gb high quality sequences; CPU req's are for single jobs – many multi-job arrays; cormhap required 44 job array; cor req 48 job array; obtovl 19 etc).
+This runs canu on the head node. Canu assembler then calls slurm all on its own (*neat*). If it is trying to suck up too many resources (and then waiting forever in the queue and/or being greedy) can limit available resources using 'gridOptions="<option>"' flag. For this assembly majority jobs ran on less than 8 CPUs and 40 G memory (45 Mb estimated genome size, 2.9 Gb high quality sequences; CPU req's are for single jobs – many multi-job arrays; cormhap required 44 job array; cor req 48 job array; obtovl 19 etc).
 
 *Added stopOnQuality=F flag to call. This prevents termination at gatekeeper if there are many short reads (~50% reads were <1Kb).*
 
@@ -28,9 +28,27 @@ This runs canu on the head node. Canu assembler then calls slurm all on its own 
 
 	sbatch nanopolish.slurm
 
+#### Quast assessment of contiguity
+
+	sbatch quast_Nf.slurm
+
+#### BUSCO assessment of completeness
+
+busco needs config file copied to run dir and edited accordingly
+
+	cp /mnt/lustre/software/linuxbrew/colsa/Cellar/busco/3.0.0/libexec/config/config.ini.default $HOME/Nf_canu_run0/config.ini
+	
+edit augustus paths if necessary
+
+	sed -i 's/\/mnt\/lustre\/software\/linuxbrew\/colsa\/Cellar\/augustus\/3.2.2_2\/libexec\/scripts\//\/mnt\/lustre\/software\/linuxbrew\/colsa\/Cellar\/augustus\/3.3.2\/scripts\//g' config.ini
+
+Run with one cpu `-c 1` unless legacy blast is available (i.e. blast 2.2.x). This is because busco throws an error with multiple threads using newer blast version.
+other run options can be edited in the config.ini file or specified on the comand line (see .slurm script)
+
+	sbatch busco_Nf.slurm
 
 #### Genemark-es gene prediction
-Genemark requires some perl modules that are not preinstalledo on premise. Easiest work-around is a conda environment. See conda_envs.sh.
+Genemark requires some perl modules that are not preinstalled on premise. Easiest work-around is a conda environment. See conda_envs.sh.
 
 	sbatch genemark.slurm
 
@@ -47,3 +65,8 @@ Otherwise...
 	mv prot_seq.faa Nf_canu_run0/gene_mark_output
 
 The files nuc_seq.fna and prot_seq.faa contain sequences of predicted proteins.
+
+#### Compare predicted protein seqs to Swissprot reviewed fungal sequences
+
+	sbatch blastp_swissprot_Nf.slurm
+	
