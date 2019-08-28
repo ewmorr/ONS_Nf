@@ -118,10 +118,10 @@ trimmomatic outputs reads to fwd/rev only surviving category if there is adapter
 sbatch spades_quast.slurm
 ```
 Contiguity is not as good as ONS assembly, but still looks good
-    - N50 = 147594
-    - L50 = 93
-    - Total len (>500 bp scf) = 42.4 Mb
-    - GC = 52.62%
+* N50 = 147594
+* L50 = 93
+* Total len (>500 bp scf) = 42.4 Mb
+* GC = 52.62%
 
 #### BUSCO assembly completeness
 
