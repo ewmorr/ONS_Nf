@@ -70,9 +70,9 @@ The files nuc_seq.fna and prot_seq.faa contain sequences of predicted proteins.
 
 	sbatch blastp_swissprot_Nf.slurm
 
-
+## ~
 ### SPAdes workflow for assembly of Illumina reads
-### Illumina sequence data generated for Garnas N. faginata (MAT1; `Sample_GARNUS-NF` *on premise*) and Kasson lab N. faginata (MAT2; `Sample_SK113`) on 8/22/19
+#### Illumina sequence data generated for Garnas N. faginata (MAT1; `Sample_GARNUS-NF` *on premise*) and Kasson lab N. faginata (MAT2; `Sample_SK113`) on 8/22/19
 
     cd neonectria_illumina
 
@@ -110,7 +110,7 @@ trimmomatic SK113 output
 Input Read Pairs: 12472167 Both Surviving: 7393782 (59.28%) Forward Only Surviving: 5013063 (40.19%) Reverse Only Surviving: 30455 (0.24%) Dropped: 34867 (0.28%)
 ```
 
-trimmomatic outputs reads to fwd/rev only survinving category if there is adapter read-through found. This is because the pair of the read is assumed to be full reverse complement of the retained read. trimmomatic keeps ~99% of reads in both, wheraes bbduk is filtering out 85% of reads in GARNAS-NF sample. SK113 retains 95% of reads and 86% of bases on BBDuk. This could be (is likely?) becasue BBDuk is also performing phiX filtering. Proceeding with the BBDuk reads seems the best route.
+trimmomatic outputs reads to fwd/rev only surviving category if there is adapter read-through found. This is because the pair of the retained read is assumed to be full reverse complement. trimmomatic keeps ~99% of reads in both samples (including paired and single-direction), whereas bbduk is filtering out 85% of reads in GARNAS-NF sample. SK113 retains 95% of reads and 86% of bases on BBDuk. The high read loss in GARNAS-NF sample could be (is likely) becasue BBDuk is also performing phiX filtering (i.e. the KTrimmed read loss). This interpretation could be checked by removing the phiX adapters AND filtering against only the phiX adapters in the ref file. However, proceeding with the BBDuk reads seems the best route.
 
 #### SPAdes assembly and quast contiguity assessment
 
@@ -118,10 +118,10 @@ trimmomatic outputs reads to fwd/rev only survinving category if there is adapte
 sbatch spades_quast.slurm
 ```
 Contiguity is not as good as ONS assembly, but still looks good
-N50 = 147594
-L50 = 93
-Total len (>500 bp scf) = 42.4 Mb
-GC = 52.62%
+    + N50 = 147594
+    + L50 = 93
+    + Total len (>500 bp scf) = 42.4 Mb
+    + GC = 52.62%
 
 #### BUSCO assembly completeness
 
@@ -129,5 +129,77 @@ GC = 52.62%
 sbatch illumina_only_spades_busco.slurm
 ```
 better than ONS assembly (for GARNAS_Nf, but SK113 has similar quality), i.e., 98.4% complete single-copy USCOs in Illumina-only compared to 84% for ONS
+
+## ~
+### SPAdes hybrid assembly workflow for assembly of Illumina + ONS minION reads
+
+    cd neonectria_illumina
+
+    sbatch ~/slurm_scripts/spades-hybrid_quast.slurm
+
+GARNAS-NF quast report
+
+```
+Assembly                    scaffolds
+# contigs (>= 0 bp)         2353
+# contigs (>= 1000 bp)      315
+# contigs (>= 5000 bp)      176
+# contigs (>= 10000 bp)     155
+# contigs (>= 25000 bp)     136
+# contigs (>= 50000 bp)     113
+Total length (>= 0 bp)      43184400
+Total length (>= 1000 bp)   42311296
+Total length (>= 5000 bp)   42007391
+Total length (>= 10000 bp)  41866221
+Total length (>= 25000 bp)  41560188
+Total length (>= 50000 bp)  40770512
+# contigs                   649
+Largest contig              1815702
+Total length                42527272
+GC (%)                      52.59
+N50                         542999
+N75                         288455
+L50                         24
+L75                         51
+# N's per 100 kbp           1.68
+```
+
+SK113 quast report (more Illumina reads in this assembly -- see above bbduk filtering)
+
+```
+Assembly                    scaffolds
+# contigs (>= 0 bp)         908
+# contigs (>= 1000 bp)      90
+# contigs (>= 5000 bp)      65
+# contigs (>= 10000 bp)     60
+# contigs (>= 25000 bp)     54
+# contigs (>= 50000 bp)     50
+Total length (>= 0 bp)      42873853
+Total length (>= 1000 bp)   42639265
+Total length (>= 5000 bp)   42575565
+Total length (>= 10000 bp)  42539168
+Total length (>= 25000 bp)  42439610
+Total length (>= 50000 bp)  42305117
+# contigs                   143
+Largest contig              3151093
+Total length                42673294
+GC (%)                      52.39
+N50                         1141390
+N75                         838162
+L50                         12
+L75                         23
+# N's per 100 kbp           0.52
+```
+
+    sbatch ~/slurm_scripts/busco_hybrid_spades.slurm
+    
+
+## ~
+### Polishing of canu assemblies with Illumina reads
+#### Illumina polishing performed with pilon on assembly that was previously polished once with ONS long reads using nanopolish (above)
+
+    cd neonectria_minion
+    sbatch bwa-pilon_mapping.slurm
+    sbatch pilon.slurm
 
 
