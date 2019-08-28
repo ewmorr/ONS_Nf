@@ -110,7 +110,7 @@ trimmomatic SK113 output
 Input Read Pairs: 12472167 Both Surviving: 7393782 (59.28%) Forward Only Surviving: 5013063 (40.19%) Reverse Only Surviving: 30455 (0.24%) Dropped: 34867 (0.28%)
 ```
 
-trimmomatic outputs reads to fwd/rev only surviving category if there is adapter read-through found. This is because the pair of the retained read is assumed to be full reverse complement. trimmomatic keeps ~99% of reads in both samples (including paired and single-direction), whereas bbduk is filtering out 85% of reads in GARNAS-NF sample. SK113 retains 95% of reads and 86% of bases on BBDuk. The high read loss in GARNAS-NF sample could be (is likely) becasue BBDuk is also performing phiX filtering (i.e. the KTrimmed read loss). This interpretation could be checked by removing the phiX adapters AND filtering against only the phiX adapters in the ref file. However, proceeding with the BBDuk reads seems the best route.
+trimmomatic outputs reads to fwd/rev only surviving category if there is adapter read-through found. This is because the pair of the retained read is assumed to be full reverse complement. trimmomatic keeps ~99% of reads in both samples (including paired and single-direction), whereas bbduk is filtering out 85% of reads in GARNAS-NF sample. SK113 retains 95% of reads and 86% of bases on BBDuk. The high read loss in GARNAS-NF sample could be (is likely) because BBDuk is also performing phiX filtering (i.e. the KTrimmed read loss). This interpretation could be checked by removing the phiX adapters AND filtering against only the phiX adapters in the ref file. However, proceeding with the BBDuk reads seems the best route.
 
 #### SPAdes assembly and quast contiguity assessment
 
@@ -118,10 +118,10 @@ trimmomatic outputs reads to fwd/rev only surviving category if there is adapter
 sbatch spades_quast.slurm
 ```
 Contiguity is not as good as ONS assembly, but still looks good
-    + N50 = 147594
-    + L50 = 93
-    + Total len (>500 bp scf) = 42.4 Mb
-    + GC = 52.62%
+    - N50 = 147594
+    - L50 = 93
+    - Total len (>500 bp scf) = 42.4 Mb
+    - GC = 52.62%
 
 #### BUSCO assembly completeness
 
