@@ -128,7 +128,7 @@ Contiguity is not as good as ONS assembly, but still looks good
 ```
 sbatch illumina_only_spades_busco.slurm
 ```
-better than ONS assembly (for GARNAS_Nf, but SK113 has similar quality), i.e., 98.4% complete single-copy USCOs in Illumina-only compared to 84% for ONS
+better than ONS assembly (both GARNAS_Nf and SK113 have similar quality), i.e., 98.4% complete single-copy USCOs in Illumina-only compared to 84% for ONS
 
 ## ~
 ### SPAdes hybrid assembly workflow for assembly of Illumina + ONS minION reads

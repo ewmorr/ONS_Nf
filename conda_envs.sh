@@ -28,3 +28,11 @@ perl change_path_in_perl_scripts.pl ~/.conda/envs/genemark-perl/bin/perl
 cd
 mv gm_key_64 .gm_key
 }
+
+
+{
+#pilon env
+conda create --name pilon
+conda activate pilon
+conda install pilon
+}
