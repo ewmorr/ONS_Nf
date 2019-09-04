@@ -32,6 +32,31 @@ This runs canu on the head node. Canu assembler then calls slurm all on its own 
 
 	sbatch quast_Nf.slurm
 
+```
+Assembly                    Nf.contigs.polished
+# contigs (>= 0 bp)         25
+# contigs (>= 1000 bp)      25
+# contigs (>= 5000 bp)      24
+# contigs (>= 10000 bp)     24
+# contigs (>= 25000 bp)     21
+# contigs (>= 50000 bp)     17
+Total length (>= 0 bp)      42853006
+Total length (>= 1000 bp)   42853006
+Total length (>= 5000 bp)   42851999
+Total length (>= 10000 bp)  42851999
+Total length (>= 25000 bp)  42807002
+Total length (>= 50000 bp)  42669650
+# contigs                   25
+Largest contig              5586860
+Total length                42853006
+GC (%)                      52.49
+N50                         4406160
+N75                         2665374
+L50                         5
+L75                         8
+# N's per 100 kbp           0.00
+```
+
 #### BUSCO assessment of completeness
 
 busco needs config file copied to run dir and edited accordingly
@@ -46,6 +71,9 @@ Run with one cpu `-c 1` unless legacy blast is available (i.e. blast 2.2.x). Thi
 other run options can be edited in the config.ini file or specified on the comand line (see .slurm script)
 
 	sbatch busco_Nf.slurm
+
+output 
+`C:84.1%[S:83.9%,D:0.2%],F:14.2%,M:1.7%,n:3725`
 
 #### Genemark-es gene prediction
 Genemark requires some perl modules that are not preinstalled on premise. Easiest work-around is a conda environment. See conda_envs.sh.
@@ -193,6 +221,8 @@ L75                         23
 
     sbatch ~/slurm_scripts/busco_hybrid_spades.slurm
     
+GARNAS-NF BUSCOs: C:98.6%[S:98.5%,D:0.1%],F:0.6%,M:0.8%,n:3725
+SK113 BUSCOs: C:98.7%[S:98.6%,D:0.1%],F:0.5%,M:0.8%,n:3725
 
 ## ~
 ### Polishing of canu assemblies with Illumina reads
@@ -202,4 +232,64 @@ L75                         23
     sbatch bwa-pilon_mapping.slurm
     sbatch pilon.slurm
 
+    sbatch quast_NF.slurm
+    #edited for appropriate paths
 
+GARNAS-NF (MAT1)
+```
+Assembly                    pilon_
+# contigs (>= 0 bp)         24
+# contigs (>= 1000 bp)      24
+# contigs (>= 5000 bp)      24
+# contigs (>= 10000 bp)     24
+# contigs (>= 25000 bp)     23
+# contigs (>= 50000 bp)     18
+Total length (>= 0 bp)      42948967
+Total length (>= 1000 bp)   42948967
+Total length (>= 5000 bp)   42948967
+Total length (>= 10000 bp)  42948967
+Total length (>= 25000 bp)  42935779
+Total length (>= 50000 bp)  42749761
+# contigs                   24
+Largest contig              5591867
+Total length                42948967
+GC (%)                      52.47
+N50                         4408047
+N75                         2666201
+L50                         5
+L75                         8
+# N's per 100 kbp           0.00
+```
+SK113 (MAT2)
+```
+Assembly                    pilon_
+# contigs (>= 0 bp)         24
+# contigs (>= 1000 bp)      24
+# contigs (>= 5000 bp)      24
+# contigs (>= 10000 bp)     24
+# contigs (>= 25000 bp)     23
+# contigs (>= 50000 bp)     18
+Total length (>= 0 bp)      42882112
+Total length (>= 1000 bp)   42882112
+Total length (>= 5000 bp)   42882112
+Total length (>= 10000 bp)  42882112
+Total length (>= 25000 bp)  42868835
+Total length (>= 50000 bp)  42682667
+# contigs                   24
+Largest contig              5588975
+Total length                42882112
+GC (%)                      52.47
+N50                         4405164
+N75                         2665129
+L50                         5
+L75                         8
+# N's per 100 kbp           0.00
+```
+GARNAS-NF (MAT1) (BUSCOs)
+```
+C:98.2%[S:98.0%,D:0.2%],F:0.8%,M:1.0%,n:3725
+```
+SK113 (MAT2) (BUSCOs)
+```
+C:98.6%[S:98.4%,D:0.2%],F:0.6%,M:0.8%,n:3725
+```
