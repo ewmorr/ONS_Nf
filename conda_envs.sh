@@ -10,13 +10,13 @@ module load anaconda/colsa
 
 {
 #genemark perl env
-conda create --name genemark-perl perl perl-app-cpanminus
-source activate genemark-perl
+conda create --name genemark-perl perl perl-app-cpanminus perl-yaml perl-hash-merge perl-logger-simple perl-parallel-forkmanager
+conda activate genemark-perl
 #if cpan needs configure at run proceed with auto-configuration
-cpan YAML
-cpan Hash::Merge
-cpan Logger::Simple
-cpan Parallel::ForkManager
+#cpan YAML
+#cpan Hash::Merge
+#cpan Logger::Simple
+#cpan Parallel::ForkManager
 
 #genemark tar ball should be moved to bin (in home) and unpacked
 #then change path to perl to reflect env (from which)

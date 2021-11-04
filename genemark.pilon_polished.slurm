@@ -8,7 +8,7 @@ module purge
 module load anaconda/colsa
 
 #conda env must already be set up see conda_envs.sh
-source activate genemark-perl
+conda activate genemark-perl
 
 GMPATH=$HOME/bin/gm_et_linux_64/gmes_petap
 #GENEMARK=$HOME/bin/gm_et_linux_64/gmes_petap/gmes_petap.pl
