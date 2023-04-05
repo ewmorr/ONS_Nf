@@ -10,8 +10,8 @@ module load linuxbrew/colsa
 #fastq to fasta
 #paste - - - - < Nf1_reads.fastq | cut -f 1,2 | sed 's/^@/>/' | tr "\t" "\n" > NF1_reads.fasta
 
-echo "indexing..."
-srun bwa index $HOME/neonectria_minion/Nf_canu_run1/Nf.contigs.polished.fasta
+#echo "indexing..."
+#srun bwa index $HOME/neonectria_minion/Nf_canu_run1/Nf.contigs.polished.fasta
 
 echo "mapping to assembly..."
 
