@@ -1,8 +1,9 @@
 ### Workflow for processing ***first run!*** of *Neonectria faginata* ONS reads from MinION.
 
+Isolate MES1 34.1.1
 MinION was run with no base-calling. Kit LSK-109; Flow cell MIN106.  
 *All scripts run with slurm on UNH Premise*
-
+Original minion output is in `~/minion` or `minion.tar.gz`
 #### Base-calling with albacore  
 This takes a long time. ~24 h for 1,172,000 reads. 
 
@@ -100,7 +101,7 @@ The files nuc_seq.fna and prot_seq.faa contain sequences of predicted proteins.
 
 ## ~
 ### SPAdes workflow for assembly of Illumina reads
-#### Illumina sequence data generated for Garnas N. faginata (MAT1; `Sample_GARNUS-NF` *on premise*) and Kasson lab N. faginata (MAT2; `Sample_SK113`) on 8/22/19
+#### Illumina sequence data generated for Garnas N. faginata (MAT1; `~/neonectria_illumina/Sample_GARNUS-NF` *on premise*) and Kasson lab N. faginata (MAT2; `~/neonectria_illumina/Sample_SK113`) on 8/22/19
 
     cd neonectria_illumina
 

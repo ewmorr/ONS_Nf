@@ -16,21 +16,21 @@ srun bwa index $HOME/neonectria_minion/Nf_canu_run1/Nf.contigs.polished.fasta
 echo "mapping to assembly..."
 
 cd $HOME/neonectria_minion
-mkdir MAT1_polish
-DIR=$HOME/neonectria_minion/MAT1_polish
+mkdir MAT1_polish_2
+DIR=$HOME/neonectria_minion/MAT1_polish_2
 srun bwa mem -t 24 \
 	$HOME/neonectria_minion/Nf_canu_run1/Nf.contigs.polished.fasta \
-	$HOME/neonectria_illumina/Sample_GARNUS-NF/raw_reads_R1.fastq.gz \
-	$HOME/neonectria_illumina/Sample_GARNUS-NF/raw_reads_R2.fastq.gz |
+	$HOME/neonectria_illumina/Sample_GARNUS-NF/bbtrimmed_raw_reads_R1.fastq.gz \
+	$HOME/neonectria_illumina/Sample_GARNUS-NF/bbtrimmed_raw_reads_R2.fastq.gz |
 	samtools sort -@ 24 -o $DIR/Nf1-illumina.sorted.bam
 srun samtools index $DIR/Nf1-illumina.sorted.bam
 
-mkdir MAT2_polish
-DIR=$HOME/neonectria_minion/MAT2_polish
-srun bwa mem -t 24 \
-	$HOME/neonectria_minion/Nf_canu_run1/Nf.contigs.polished.fasta \
-	$HOME/neonectria_illumina/Sample_SK113/raw_reads_R1.fastq.gz \
-	$HOME/neonectria_illumina/Sample_SK113/raw_reads_R2.fastq.gz |
-	samtools sort -@ 24 -o $DIR/Nf1-illumina.sorted.bam
-srun samtools index $DIR/Nf1-illumina.sorted.bam
+#mkdir MAT2_polish
+#DIR=$HOME/neonectria_minion/MAT2_polish
+#srun bwa mem -t 24 \
+#	$HOME/neonectria_minion/Nf_canu_run1/Nf.contigs.polished.fasta \
+#	$HOME/neonectria_illumina/Sample_SK113/raw_reads_R1.fastq.gz \
+#	$HOME/neonectria_illumina/Sample_SK113/raw_reads_R2.fastq.gz |
+#	samtools sort -@ 24 -o $DIR/Nf1-illumina.sorted.bam
+#srun samtools index $DIR/Nf1-illumina.sorted.bam
 

@@ -12,8 +12,7 @@ conda activate genemark-perl
 
 GMPATH=$HOME/bin/gm_et_linux_64/gmes_petap
 #GENEMARK=$HOME/bin/gm_et_linux_64/gmes_petap/gmes_petap.pl
-PATH=$GMPATH:$PATH
-export $PATH
+
 
 #for MAT2 pilon polished --mincontig 10k excludes no contig (default is 50k)
 srun perl $GMPATH/gmes_petap.pl --ES --fungus --cores 24 -v \
