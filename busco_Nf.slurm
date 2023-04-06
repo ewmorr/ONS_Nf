@@ -4,6 +4,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=24 
 #SBATCH --output Nf_buscos.out
+#SBATCH --exclude=node117,node118
 
 module purge
 module load linuxbrew/colsa
