@@ -8,6 +8,6 @@
 module purge
 module load linuxbrew/colsa
 
-cd $HOME/Nf_canu_run0
+cd $HOME/neonectria_minion/MAT1_polish_2
 
-srun quast -o Nf_polished_quast -e -t 24 Nf.contigs.polished.fasta 
+srun quast -o pilon_polished_quast -e -t 24 pilon_.fasta
