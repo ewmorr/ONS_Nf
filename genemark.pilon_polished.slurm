@@ -17,6 +17,6 @@ GMPATH=$HOME/bin/gm_et_linux_64/gmes_petap
 #for MAT2 pilon polished --mincontig 10k excludes no contig (default is 50k)
 srun perl $GMPATH/gmes_petap.pl --ES --fungus --cores 24 -v \
 --min_contig 10000 \
---sequence $HOME/neonectria_minion/MAT2_polish/pilon_.fasta
+--sequence $HOME/neonectria_minion/MAT2_polish_2/pilon_.fasta
 
-srun perl $GMPATH/get_sequence_from_GTF.pl genemark.gtf $HOME/neonectria_minion/MAT2_polish/pilon_.fasta
+srun perl $GMPATH/get_sequence_from_GTF.pl genemark.gtf $HOME/neonectria_minion/MAT2_polish_2/pilon_.fasta
