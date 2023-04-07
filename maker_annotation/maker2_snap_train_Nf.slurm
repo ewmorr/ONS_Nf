@@ -71,7 +71,7 @@ srun --ntasks=1 hmm-assembler.pl $base . > $base.snap.hmm
 
 
 #Move maker CTL files for final run
-cd ~/neonectria_genome_reseq_10072020/maker2_run_uniprot
+cd ~/Nf_annotate/maker2_run
 mv ~/Nf_annotate/maker2_run/maker_opts.ctl ~/repo/ONS_Nf/maker_annotation/maker_opts_2.ctl
 mv ~/repo/ONS_Nf/maker_annotation/maker_opts_3.ctl ~/Nf_annotate/maker2_run/maker_opts.ctl
 
