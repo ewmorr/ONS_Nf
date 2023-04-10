@@ -43,7 +43,7 @@ trna=0 #find tRNAs with tRNAscan, 1 = yes, 0 = no
 snoscan_rrna= #rRNA file to have Snoscan find snoRNAs
 unmask=0 #also run ab-initio prediction programs on unmasked sequence, 1 = yes, 0 = no
 
-#-----Other Annotation Feature Types (features MAKER doesn't recognize)
+#-----Other Annotation Feature Types (features MAKER doesn't recognize
 other_gff= #extra features to pass-through to final MAKER generated GFF3 file
 
 #-----External Application Behavior Options
