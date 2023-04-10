@@ -49,9 +49,9 @@ grep ">" makerFINAL.transcripts.aed-1.0.fasta | wc -l
 
 Results of BUSCO search of transcripts (running both AED<1.0 and all transcripts)
 ```
-cd ~/neonectria_genome_reseq_10072020/
-sbatch ~/repo/neonectria_genome_reseq_10072020/maker_annotation/busco_maker_eval.slurm 
-sbatch ~/repo/neonectria_genome_reseq_10072020/maker_annotation/busco_maker_eval_all.slurm  
+cd ~/Nf_annotate/
+sbatch ~/repo/ONS_Nf/maker_annotation/busco_maker_eval.slurm 
+sbatch ~/repo/ONS_Nf/maker_annotation/busco_maker_eval_all.slurm  
 ```
 
 ```
