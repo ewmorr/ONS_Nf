@@ -39,6 +39,12 @@ sbatch ~/repo/ONS_Nf/maker_annotation/maker2_snap_train_Nf.slurm
 sbatch ~/repo/neonectria_genome_reseq_10072020/maker_annotation/maker2_final_run_Nf.slurm
 sbatch ~/repo/neonectria_genome_reseq_10072020/maker_annotation/busco_maker_eval.slurm
 ```
+Or instead of SNAP train and final run with dif models in final step, just run all at once (make sure it works before jumping here)
+```
+cd Nf_annotate/
+sbatch ~/repo/ONS_Nf/maker_annotation/maker2_snap_train_plus_final_Nf.slurm
+```
+
 #### maker2 run was successful and is located at `neonectria_genome_reseq_10072020/maker2_run/` 
 ```
 grep ">" makerFINAL.all.maker.transcripts.fasta | wc -l
