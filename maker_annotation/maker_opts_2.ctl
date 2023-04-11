@@ -1,5 +1,5 @@
 #-----Genome (these are always required)
-genome=/mnt/home/garnas/ericm/SPANDx_Nf/ref.fasta #genome sequence (fasta file or fasta embeded in GFF3 file)
+genome=/mnt/home/garnas/ericm/neonectria_minion/MAT1_polish_2/pilon_.fasta #genome sequence (fasta file or fasta embeded in GFF3 file)
 organism_type=eukaryotic #eukaryotic or prokaryotic. Default is eukaryotic
 
 #-----Re-annotation Using MAKER Derived GFF3
@@ -31,7 +31,7 @@ prok_rm=0 #forces MAKER to repeatmask prokaryotes (no reason to change this), 1 
 softmask=1 #use soft-masking rather than hard-masking in BLAST (i.e. seg and dust filtering)
 
 #-----Gene Prediction
-snaphmm=/mnt/home/garnas/ericm/neonectria_genome_reseq_10072020/maker_run/maker1.hmm/maker1.snap.hmm #SNAP HMM file
+snaphmm=/mnt/home/garnas/ericm/Nf_annotate/maker2_run/maker1.hmm/maker1.snap.hmm #SNAP HMM file
 gmhmm= #GeneMark HMM file
 augustus_species= #Augustus gene prediction species model
 fgenesh_par_file= #FGENESH parameter file

@@ -1,5 +1,5 @@
 #-----Genome (these are always required)
-genome=/mnt/home/garnas/ericm/SPANDx_Nf/ref.fasta #genome sequence (fasta file or fasta embeded in GFF3 file)
+genome=/mnt/home/garnas/ericm/neonectria_minion/MAT1_polish_2/pilon_.fasta #genome sequence (fasta file or fasta embeded in GFF3 file)
 organism_type=eukaryotic #eukaryotic or prokaryotic. Default is eukaryotic
 
 #-----Re-annotation Using MAKER Derived GFF3
@@ -19,7 +19,7 @@ est_gff= #aligned ESTs or mRNA-seq from an external GFF3 file
 altest_gff= #aligned ESTs from a closly relate species in GFF3 format
 
 #-----Protein Homology Evidence (for best results provide a file for at least one)
-protein=/mnt/home/garnas/ericm/blast_dbs/uniprot-fungi_reviewed_07252022.fasta  #protein sequence file in fasta format (i.e. from mutiple oransisms)
+protein=/mnt/home/garnas/ericm/reference_genomes/Fusgr1/Fusgr1_GeneCatalog_proteins_20110524.aa.fasta  #protein sequence file in fasta format (i.e. from mutiple oransisms)
 protein_gff=  #aligned protein homology evidence from an external GFF3 file
 
 #-----Repeat Masking (leave values blank to skip repeat masking)
@@ -33,7 +33,7 @@ softmask=1 #use soft-masking rather than hard-masking in BLAST (i.e. seg and dus
 #-----Gene Prediction
 snaphmm=/mnt/home/garnas/ericm/Nf_annotate/maker2_run/maker3.hmm/maker3.snap.hmm #SNAP HMM file
 gmhmm=/mnt/home/garnas/ericm/Nf_annotate/genemark_run/output/gmhmm.mod #GeneMark HMM file
-augustus_species=BUSCO_Nf_buscos_long_2292717447 #Augustus gene prediction species model
+augustus_species=BUSCO_Nf_buscos_long_2292717447 #Augustus gene prediction species model (from older assembly but should be fine)
 fgenesh_par_file= #FGENESH parameter file
 pred_gff= #ab-initio predictions from an external GFF3 file
 model_gff= #annotated gene models from an external GFF3 file (annotation pass-through)

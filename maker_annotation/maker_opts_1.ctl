@@ -1,5 +1,5 @@
 #-----Genome (these are always required)
-genome=/mnt/home/garnas/ericm/SPANDx_Nf/ref.fasta #genome sequence (fasta file or fasta embeded in GFF3 file)
+genome=/mnt/home/garnas/ericm/neonectria_minion/MAT1_polish_2/pilon_.fasta #genome sequence (fasta file or fasta embeded in GFF3 file)
 organism_type=eukaryotic #eukaryotic or prokaryotic. Default is eukaryotic
 
 #-----Re-annotation Using MAKER Derived GFF3
