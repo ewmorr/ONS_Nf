@@ -36,8 +36,7 @@ sbatch ~/repo/ONS_Nf/maker_annotation/maker2_snap_train_Nf.slurm
 
 ## Maker run with gene models from AUGUSTUS SNAP GeneMark
 ```
-sbatch ~/repo/neonectria_genome_reseq_10072020/maker_annotation/maker2_final_run_Nf.slurm
-sbatch ~/repo/neonectria_genome_reseq_10072020/maker_annotation/busco_maker_eval.slurm
+sbatch ~/repo/ONS_Nf/maker_annotation/maker2_final_run_Nf.slurm
 ```
 Or instead of SNAP train and final run with dif models in final step, just run all at once (make sure it works before jumping here)
 ```
@@ -45,12 +44,12 @@ cd Nf_annotate/
 sbatch ~/repo/ONS_Nf/maker_annotation/maker2_snap_train_plus_final_Nf.slurm
 ```
 
-#### maker2 run was successful and is located at `neonectria_genome_reseq_10072020/maker2_run/` 
+#### maker2 run was successful and is located at `Nf_annotate/maker2_run/` 
 ```
 grep ">" makerFINAL.all.maker.transcripts.fasta | wc -l
-#14064
+#14289
 grep ">" makerFINAL.transcripts.aed-1.0.fasta | wc -l
-#9303
+#9375
 ```
 
 Results of BUSCO search of transcripts (running both AED<1.0 and all transcripts)
@@ -64,27 +63,28 @@ sbatch ~/repo/ONS_Nf/maker_annotation/busco_maker_eval_all.slurm
 #AED<1.0
 # Summarized benchmarking in BUSCO notation for file makerFINAL.transcripts.aed-1.0.fasta
 # BUSCO was run in mode: transcriptome
+        
+INFO    C:96.3%[S:96.1%,D:0.2%],F:2.2%,M:1.5%,n:3725
+INFO    3589 Complete BUSCOs (C)
+INFO    3580 Complete and single-copy BUSCOs (S)
+INFO    9 Complete and duplicated BUSCOs (D)
+INFO    83 Fragmented BUSCOs (F)
+INFO    53 Missing BUSCOs (M)
+INFO    3725 Total BUSCO groups searched
+INFO    BUSCO analysis done. Total running time: 413.388222933 seconds
+INFO    Results written in /mnt/lz01/garnas/ericm/Nf_annotate/maker2_run/run_busco_transcript_eval/
 
-        C:95.5%[S:95.2%,D:0.3%],F:3.0%,M:1.5%,n:3725
-
-        3555    Complete BUSCOs (C)
-        3545    Complete and single-copy BUSCOs (S)
-        10      Complete and duplicated BUSCOs (D)
-        113     Fragmented BUSCOs (F)
-        57      Missing BUSCOs (M)
-        3725    Total BUSCO groups searched
 #all transcripts
 # Summarized benchmarking in BUSCO notation for file makerFINAL.all.maker.transcripts.fasta
 # BUSCO was run in mode: transcriptome
 
-        C:96.2%[S:95.8%,D:0.4%],F:3.2%,M:0.6%,n:3725
-
-        3582    Complete BUSCOs (C)
-        3568    Complete and single-copy BUSCOs (S)
-        14      Complete and duplicated BUSCOs (D)
-        119     Fragmented BUSCOs (F)
-        24      Missing BUSCOs (M)
-        3725    Total BUSCO groups searched
+INFO    C:97.1%[S:96.7%,D:0.4%],F:2.4%,M:0.5%,n:3725
+INFO    3618 Complete BUSCOs (C)
+INFO    3602 Complete and single-copy BUSCOs (S)
+INFO    16 Complete and duplicated BUSCOs (D)
+INFO    88 Fragmented BUSCOs (F)
+INFO    19 Missing BUSCOs (M)
+INFO    3725 Total BUSCO groups searched
 
 ```
 
