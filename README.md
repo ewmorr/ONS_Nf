@@ -294,3 +294,9 @@ SK113 (MAT2) (BUSCOs)
 ```
 C:98.6%[S:98.4%,D:0.2%],F:0.6%,M:0.8%,n:3725
 ```
+
+### QUast minion reads for genome report
+```
+cd neonectria_minion/
+
+```

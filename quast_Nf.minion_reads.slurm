@@ -11,4 +11,4 @@ module load linuxbrew/colsa
 
 cd $HOME/neonectria_minion/
 
-srun quast -o minion_reads_quast -e -t 24 Nf1_reads.fasta
+srun quast -o minion_reads_quast -m 0 -e -t 24 Nf1_reads.fasta
