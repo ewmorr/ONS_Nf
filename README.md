@@ -229,39 +229,40 @@ SK113 BUSCOs: C:98.7%[S:98.6%,D:0.1%],F:0.5%,M:0.8%,n:3725
 ### Polishing of canu assemblies with Illumina reads
 #### Illumina polishing performed with pilon on assembly that was previously polished once with ONS long reads using nanopolish (above)
 
+```
     cd neonectria_minion
     sbatch bwa-pilon_mapping.slurm
     sbatch pilon.slurm
 
     sbatch quast_NF.slurm
     #edited for appropriate paths
-
-GARNAS-NF (MAT1)
 ```
-Assembly                    pilon_
-# contigs (>= 0 bp)         24
-# contigs (>= 1000 bp)      24
-# contigs (>= 5000 bp)      24
-# contigs (>= 10000 bp)     24
-# contigs (>= 25000 bp)     23
-# contigs (>= 50000 bp)     18
-Total length (>= 0 bp)      42948967
-Total length (>= 1000 bp)   42948967
-Total length (>= 5000 bp)   42948967
-Total length (>= 10000 bp)  42948967
-Total length (>= 25000 bp)  42935779
-Total length (>= 50000 bp)  42749761
-# contigs                   24
-Largest contig              5591867
-Total length                42948967
-GC (%)                      52.47
-N50                         4408047
-N75                         2666201
-L50                         5
-L75                         8
-# N's per 100 kbp           0.00
+GARNAS-NF (MAT1) (resides in MAT1_polish_2; was performed after bbduk filtering of Illumina reads)
 ```
-SK113 (MAT2)
+Assembly                    pilon_  
+# contigs (>= 0 bp)         24      
+# contigs (>= 1000 bp)      24      
+# contigs (>= 5000 bp)      24      
+# contigs (>= 10000 bp)     24      
+# contigs (>= 25000 bp)     23      
+# contigs (>= 50000 bp)     18      
+Total length (>= 0 bp)      42948211
+Total length (>= 1000 bp)   42948211
+Total length (>= 5000 bp)   42948211
+Total length (>= 10000 bp)  42948211
+Total length (>= 25000 bp)  42935023
+Total length (>= 50000 bp)  42749008
+# contigs                   24      
+Largest contig              5591828 
+Total length                42948211
+GC (%)                      52.47   
+N50                         4407951 
+N75                         2666135 
+L50                         5       
+L75                         8       
+# N's per 100 kbp           0.00    
+```
+SK113 (MAT2) (resides in MAT2_polish; was performed with no read filtering for Illumina reads)
 ```
 Assembly                    pilon_
 # contigs (>= 0 bp)         24
@@ -288,15 +289,56 @@ L75                         8
 ```
 GARNAS-NF (MAT1) (BUSCOs)
 ```
-C:98.2%[S:98.0%,D:0.2%],F:0.8%,M:1.0%,n:3725
+        C:98.6%[S:98.4%,D:0.2%],F:0.6%,M:0.8%,n:3725
+
+        3672    Complete BUSCOs (C)
+        3665    Complete and single-copy BUSCOs (S)
+        7       Complete and duplicated BUSCOs (D)
+        23      Fragmented BUSCOs (F)
+        30      Missing BUSCOs (M)
+        3725    Total BUSCO groups searched
+
 ```
 SK113 (MAT2) (BUSCOs)
 ```
 C:98.6%[S:98.4%,D:0.2%],F:0.6%,M:0.8%,n:3725
+
+        3673    Complete BUSCOs (C)
+        3667    Complete and single-copy BUSCOs (S)
+        6       Complete and duplicated BUSCOs (D)
+        23      Fragmented BUSCOs (F)
+        29      Missing BUSCOs (M)
+        3725    Total BUSCO groups searched
 ```
 
 ### QUast minion reads for genome report
 ```
 cd neonectria_minion/
+sbatch ~/repo/ONS_Nf/quast_Nf.minion_reads.slurm
+```
+Quast report (minimum read len = 0)
+```
+Assembly                    Nf1_reads 
+# contigs (>= 0 bp)         959919    
+# contigs (>= 1000 bp)      475527    
+# contigs (>= 5000 bp)      168771    
+# contigs (>= 10000 bp)     95276     
+# contigs (>= 25000 bp)     17823     
+# contigs (>= 50000 bp)     478       
+Total length (>= 0 bp)      3249705897
+Total length (>= 1000 bp)   2968322461
+Total length (>= 5000 bp)   2318557284
+Total length (>= 10000 bp)  1791196869
+Total length (>= 25000 bp)  580040950 
+Total length (>= 50000 bp)  27065140  
+# contigs                   959919    
+Largest contig              117359    
+Total length                3249705897
+GC (%)                      50.33     
+N50                         11647     
+N75                         3972      
+L50                         79872     
+L75                         195390    
+# N's per 100 kbp           0.00      
 
 ```

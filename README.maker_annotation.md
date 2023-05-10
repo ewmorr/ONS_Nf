@@ -229,3 +229,23 @@ wc -l Nf_granular_GO.long.uniq.txt
 wc -l Nf_GOslim_Yeast.long.uniq.txt
 #28277
 ```
+### Count number of blast hits and GO annotations for the granular and the slim terms
+```
+grep "BLASTED" Nf_granular_GO.txt | wc -l
+#13121
+grep "NO-BLAST" Nf_granular_GO.txt | wc -l
+#1168
+grep "ANNOTATED" Nf_granular_GO.txt | wc -l
+#9628
+```
+These are similar to the results from the first set of proteins where 14,064 total resulted in 13039 with blast hits and 9631 with GO annotations
+```
+grep "BLASTED" Nf_GOslim_Yeast.txt | wc -l
+#13121
+grep "NO-BLAST" Nf_GOslim_Yeast.txt | wc -l
+#1168
+grep "ANNOTATED" Nf_GOslim_Yeast.txt | wc -l
+#5 (these are deprecated GO terms)
+grep "GO-SLIM" Nf_GOslim_Yeast.txt | wc -l
+#9623
+```
