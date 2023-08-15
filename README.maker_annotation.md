@@ -249,3 +249,8 @@ grep "ANNOTATED" Nf_GOslim_Yeast.txt | wc -l
 grep "GO-SLIM" Nf_GOslim_Yeast.txt | wc -l
 #9623
 ```
+
+## Compare assembly to mt genome of Fusarium oxysporum NCBI ref CM010346
+```
+sbatch ~/repo/ONS_Nf/blastx_FUOX_mt_v_Nf_ref.slurm 
+```
