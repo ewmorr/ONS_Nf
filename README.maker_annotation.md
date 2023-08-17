@@ -253,4 +253,6 @@ grep "GO-SLIM" Nf_GOslim_Yeast.txt | wc -l
 ## Compare assembly to mt genome of Fusarium oxysporum NCBI ref CM010346
 ```
 sbatch ~/repo/ONS_Nf/blastx_FUOX_mt_v_Nf_ref.slurm 
+grep neonectria_genome_reseq_10072020/tig00000405_pilon FuOx_mt.blast | wc -l
 ```
+tig00000405_pilon has 61 hits at e-value >10^-5 while no other contig has more than 1
