@@ -255,4 +255,8 @@ grep "GO-SLIM" Nf_GOslim_Yeast.txt | wc -l
 sbatch ~/repo/ONS_Nf/blastx_FUOX_mt_v_Nf_ref.slurm 
 grep neonectria_genome_reseq_10072020/tig00000405_pilon FuOx_mt.blast | wc -l
 ```
-tig00000405_pilon has 61 hits at e-value >10^-5 while no other contig has more than 1
+calculate statistics
+```
+mt_hits_stats.R
+```
+tig00000405_pilon has 60 hits at e-value >10^-5 against Fonseca Nectriaceae mt genomes constituting 63% of the total contig length. 14 total contis had hits, but no other contigs had more than 0.3% length coverage. 8 of the 14 >0.1% coverage.
