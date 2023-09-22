@@ -250,10 +250,10 @@ grep "GO-SLIM" Nf_GOslim_Yeast.txt | wc -l
 #9623
 ```
 
-## Compare assembly to mt genome of Fusarium oxysporum NCBI ref CM010346
+## Compare assembly to mt genome of Nectriaceae from Fonseca et al.
 ```
-sbatch ~/repo/ONS_Nf/blastx_FUOX_mt_v_Nf_ref.slurm 
-grep neonectria_genome_reseq_10072020/tig00000405_pilon FuOx_mt.blast | wc -l
+sbatch repo/ONS_Nf/blastx_fonseca_mt_v_Nf_ref.slurm 
+grep neonectria_genome_reseq_10072020 fonseca_mt.blast | wc -l
 ```
 calculate statistics
 ```
