@@ -3,7 +3,7 @@
 #SBATCH -J braker
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --output braker.out
+#SBATCH --output braker_test.out
 
 module purge
 module load anaconda/colsa
