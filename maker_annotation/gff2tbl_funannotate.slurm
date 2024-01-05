@@ -5,7 +5,7 @@
 ##SBATCH --cpus-per-task=24
 #SBATCH --output gff2tbl.out
 #SBATCH --exclude=node117,node118
-#SBATCH --share
+##SBATCH --share
 
 module purge
 module load anaconda/colsa
