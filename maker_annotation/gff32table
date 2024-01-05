@@ -1,0 +1,246 @@
+#!/usr/bin/perl -w 
+use strict;
+use FileHandle;
+use Getopt::Std;
+use vars qw($opt_u);
+getopts('u:');
+
+
+#-----------------------------------------------------------------------------
+#----------------------------------- MAIN ------------------------------------
+#-----------------------------------------------------------------------------
+my $usage = "\n\n\t
+Converts a MAKER generated gff3 file into table format. A separate file 
+is printed for each \"seqid\".
+
+I may modify to take the MAKER master index log as an option in the 
+future.
+
+gff32table.pl <maker.gff> -u <unique lab identifier>
+
+Options: -u <string> this is the unique lab identifier that will
+                     appear in the genbank id.
+       
+\n\n";
+
+my $FILE = $ARGV[0];
+die($usage) unless $ARGV[0];
+my %DATA;
+my %LU;
+
+parse($FILE);
+print_table();
+#-----------------------------------------------------------------------------
+#---------------------------------- SUBS -------------------------------------
+#-----------------------------------------------------------------------------
+sub begin_end{
+    my $exons  = shift;
+    my $last_el = @$exons -1;
+    return ($exons->[0], $exons->[$last_el]);
+}
+#-----------------------------------------------------------------------------
+sub sort_exons{
+    my $strand = shift;
+    my $fid = shift;
+    my $gid = shift;
+    my $tid = shift;
+    my @exons;
+    my @CDS;
+    my $gb;
+    my $ge;
+
+    if ($strand eq '+'){                                                
+	@exons = sort {$a <=> $b}                                       
+	@{$DATA{$fid}{'gids'}{$gid}{'tids'}{$tid}{'exon'}};             
+	@CDS = sort {$a <=> $b}                                         
+	@{$DATA{$fid}{'gids'}{$gid}{'tids'}{$tid}{'CDS'}};              
+	($gb,$ge) = begin_end(\@exons);                                 
+    }                                                                   
+    elsif ($strand eq '-'){                                             
+	@exons = sort {$b <=> $a}                                      
+	@{$DATA{$fid}{'gids'}{$gid}{'tids'}{$tid}{'exon'}};            
+	@CDS = sort {$b <=> $a}                                        
+	@{$DATA{$fid}{'gids'}{$gid}{'tids'}{$tid}{'CDS'}};             
+	($gb,$ge) = begin_end(\@exons);                                
+    }                                                                  
+    else {die "no strand informaton for $gid\n";}             
+    return (\@exons, \@CDS, $gb, $ge);
+}
+#-----------------------------------------------------------------------------
+sub completeness{
+    my $fid = shift;
+    my $gid = shift;
+    my $tid = shift;
+    my $fpc;
+    my $tpc;
+    my $completeness;
+    #7=complete
+    #6=five prime and three prime incomplete
+    #5=five prime complete
+    #3=three prime complete
+
+    $tpc = 1 if $DATA{$fid}{'gids'}{$gid}{'tids'}{$tid}{'three_prime_UTR'};
+    $fpc = 1 if $DATA{$fid}{'gids'}{$gid}{'tids'}{$tid}{'five_prime_UTR'};
+
+    if ($tpc && $fpc){
+	$completeness = 7;
+    }
+    elsif ($tpc){
+	$completeness = 3;
+    }
+    elsif ($fpc){
+	$completeness = 5;
+    }
+    else{
+	$completeness = 6;
+    }
+    return $completeness;
+}
+#-----------------------------------------------------------------------------
+sub print_table{
+    
+    foreach my $fid (keys %DATA){
+	my $fh_f = new FileHandle;
+	$fh_f->open(">$fid.tbl");
+	
+	print $fh_f ">Feature $fid\n";
+	foreach my $gid (keys %{$DATA{$fid}{'gids'}}){
+	    my $strand = $DATA{$fid}{'gids'}{$gid}{'strand'};
+	    my $gps=1;
+	    foreach my $tid (keys %{$DATA{$fid}{'gids'}{$gid}{'tids'}}){
+		my ($exons, $CDS, $gb, $ge) = sort_exons($strand, $fid, $gid, $tid);
+		my $completeness = completeness($fid, $gid, $tid);
+			
+		print $fh_f "$gb\t$ge\tgene\n" if $completeness == 7 && $gps == 1;
+		$gps++ if $completeness == 7;
+		print $fh_f "$gb\t>$ge\tgene\n" if $completeness == 5 && $gps == 1;
+		$gps++ if $completeness == 5;
+		print $fh_f "<$gb\t$ge\tgene\n" if $completeness == 3 && $gps == 1;
+		$gps++ if $completeness == 3;
+		print $fh_f "<$gb\t>$ge\tgene\n" if $completeness == 6 && $gps == 1;
+		$gps++ if $completeness == 6;
+		print $fh_f "\t\t\tlocus_tag\t$gid\n";
+		print_exon($exons,'mRNA',$completeness, $fh_f);
+		print $fh_f "\t\t\tproduct\thypothetical protein\n";
+		print $fh_f "\t\t\tprotein_id\tgnl\|$opt_u|$gid\n";
+		print $fh_f "\t\t\ttranscript_id\tgnl\|$opt_u|$tid\n\n";
+		print_exon($CDS,'CDS',$completeness, $fh_f);
+		print $fh_f "\t\t\tproduct\thypothetical protein\n";
+		print $fh_f "\t\t\tprotein_id\tgnl\|$opt_u|$gid\n";
+		print $fh_f "\t\t\ttranscript_id\tgnl\|$opt_u|$tid\n\n";
+	    }
+	}
+    $fh_f->close()
+    }
+}
+#-----------------------------------------------------------------------------
+sub print_exon{
+    my $exons = shift;
+    my $flag  = shift;
+    my $completeness = shift;
+    my $ec = 0;
+    my $num_el = @$exons;
+    my $fh_f = shift;
+    #7=complete
+    #6=five prime and three prime incomplete
+    #5=five prime complete
+    #3=three prime complete
+    while (@$exons){
+	my $eb = shift(@$exons);
+	my $ee = shift(@$exons);
+	if ($flag eq 'CDS' || $completeness == 7){
+	    print $fh_f "$eb\t$ee\t$flag\n" unless $ec >=1;
+	    print $fh_f "$eb\t$ee\n" if $ec;
+	    $ec++;
+	}
+	elsif ($completeness == 3){
+	    print $fh_f "\<$eb\t$ee\t$flag\n" unless $ec >=1;
+	    print $fh_f "$eb\t$ee\n" if $ec;
+	    $ec++;
+	}
+	elsif ($completeness == 5){
+	    print $fh_f "$eb\t$ee\t$flag\n" unless $ec >=1;
+	    print $fh_f "$eb\t$ee\n" if $ec && $exons->[1];
+	    print $fh_f "$eb\t>$ee\n" if $ec && !$exons->[1];
+	    $ec++;
+	}
+	elsif ($completeness == 6){
+	    print $fh_f "<$eb\t$ee\t$flag\n" unless $ec >=1;
+	    print $fh_f "$eb\t$ee\n" if $ec && $exons->[1];
+	    print $fh_f "$eb\t>$ee\n" if $ec && !$exons->[1];
+	    $ec++;
+	}
+    }
+}
+#-----------------------------------------------------------------------------
+sub parse_exon{
+    my $stuff = shift;
+    my $type = shift;
+    my $scaf=$stuff->[0];
+    my $begin=$stuff->[3];
+    my $end=$stuff->[4];
+    my $tid;
+    my @atts = split(/;/, $stuff->[8]);
+
+    foreach my $pair (@atts){
+        my @kv = split(/=/, $pair);
+	if ($kv[0] eq 'Parent'){
+            $tid = $kv[1];
+        }
+    }
+    my $gid = $LU{$tid};
+    push(@{$DATA{$scaf}{'gids'}{$gid}{'tids'}{$tid}{$type}}, $begin);
+    push(@{$DATA{$scaf}{'gids'}{$gid}{'tids'}{$tid}{$type}}, $end);
+}
+#-----------------------------------------------------------------------------
+sub parse_mRNA{
+    my $stuff = shift;
+    my $gid;
+    my $tid;
+    my @atts = split(/;/, $stuff->[8]);
+
+    foreach my $pair (@atts){
+	my @kv = split(/=/, $pair);
+	if ($kv[0] eq 'ID'){
+	    $tid = $kv[1];
+	}
+	elsif ($kv[0] eq 'Parent'){
+	    $gid = $kv[1];
+	}
+    }
+    $DATA{$stuff->[0]}{'gids'}{$gid}{'strand'}= $stuff->[6];
+    $LU{$tid}=$gid;
+}
+#-----------------------------------------------------------------------------
+sub parse{
+    
+    my $file = shift;      
+    
+    my $fh = new FileHandle;
+    $fh->open($file);
+    
+    while (defined(my $line = <$fh>)){
+	chomp($line);
+	last if $line =~ /^\#\#FASTA/;
+	next if $line =~ /^\#/;
+	my @stuff = split(/\t/, $line);
+	if ($stuff[2] eq 'mRNA'){
+	    parse_mRNA(\@stuff);
+	}
+	if ($stuff[2] eq 'exon'){
+	    parse_exon(\@stuff,'exon');
+	}
+	if ($stuff[2] eq 'CDS'){
+	    parse_exon(\@stuff,'CDS');
+	}
+	if ($stuff[2] eq 'three_prime_UTR'){
+	    parse_exon(\@stuff,'three_prime_UTR');
+	}
+	if ($stuff[2] eq 'five_prime_UTR'){
+	    parse_exon(\@stuff, 'five_prime_UTR');
+	}
+    }
+    $fh->close();
+}
+#-----------------------------------------------------------------------------
+

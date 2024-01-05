@@ -14,4 +14,7 @@ conda activate funannotate_py
 cd ~/Nf_annotate/
 fastaFile=/mnt/home/garnas/ericm/neonectria_minion/MAT1_polish_2/pilon_.fasta
 
+
+funannotate util gff2tbl -g maker2_run/makerFINAL.all.no_head.gff -f $fastaFile
+
 funannotate util gff2tbl -g maker2_run/makerFINAL.all.gff -f $fastaFile > maker2_run/makerFINAL.all.tbl
