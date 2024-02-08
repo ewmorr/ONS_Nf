@@ -12,4 +12,4 @@ module load linuxbrew/colsa
 cd ~/Nf_annotate/funannotate_run/
 
 
-srun RepeatMasker -dir . -xsmall -pa 12 -lib RepeatMaskerLib/fngrep.ref $HOME/Nf_SPANDx_all_seqs/ref.fasta
+srun RepeatMasker -dir . -xsmall -pa 12 -lib $HOME/RepeatMaskerLib/fngrep.ref $HOME/Nf_SPANDx_all_seqs/ref.fasta
