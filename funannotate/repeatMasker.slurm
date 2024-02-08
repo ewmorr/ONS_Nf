@@ -7,12 +7,9 @@
 #SBATCH --exclude=node117,node118
 
 module purge
-module load anaconda/colsa
-conda activate funannotate
+module load linuxbrew/colsa
 
 cd ~/Nf_annotate/funannotate_run/
 
 
-srun funannotate mask -i /mnt/home/garnas/ewj4/Nf_SPANDx_all_seqs/ref.fasta \
-    -o ref.sofmask.fasta \
-    -m repeatmasker -l RepeatMaskerLib/fngrep.ref --cpus 12
+srun RepeatMasker -dir . -species fungi -xsmall -pa 12 -lib RepeatMaskerLib/fngrep.ref $HOME/Nf_SPANDx_all_seqs/ref.fasta
