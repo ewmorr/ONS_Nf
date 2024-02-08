@@ -1,6 +1,9 @@
 # Ignore the data folder
 data/
 
+#Ignor ncbi table2asn which is huge
+maker_annotation/table2asn
+
 # Ignore the figures folder
 figures/
 .Rproj.user
