@@ -1,5 +1,5 @@
 
-# Funannotate v.1.8.11 attempt
+# Funannotate v.1.8.15 attempt
 RepeatMasker run outside of funann pipe
 ```
 sbatch repeatMasker.slurm
@@ -10,4 +10,7 @@ cd Nf_annotate/funannotate_run/RepeatMasker
 sed 's/_pilon//g' ref.fasta.masked > ref.fasta.masked.clean
 grep ">" ref.fasta.masked.clean
 ```
-
+predict
+```
+sbatch ~/repo/ONS_Nf/funannotate/funannotate_predict.slurm
+```
