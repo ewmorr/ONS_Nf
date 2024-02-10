@@ -13,8 +13,10 @@ conda actviate eggnog-mapper-2.1.12
 
 #dbEggnog=/mnt/lz01/hcgs/shared/databases/eggnog-mapper
 
-cd NEED TO CHANGE AND ADD INPUT
+cd ~/Nf_annotate/funannotate_run/
+mkdir output_eggnog_prot
 
-srun emapper.py -i \
+srun emapper.py -i output_funann/predict_results/Neonectria_faginata.proteins.fa \
+    --output_dir output_eggnog_prot \
     --cpu 24 \
     -m diamond
