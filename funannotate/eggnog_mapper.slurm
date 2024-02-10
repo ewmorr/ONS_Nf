@@ -18,5 +18,6 @@ mkdir output_eggnog_prot
 
 srun emapper.py -i output_funann/predict_results/Neonectria_faginata.proteins.fa \
     --output_dir output_eggnog_prot \
+    -o Nf_ \
     --cpu 24 \
     -m diamond
