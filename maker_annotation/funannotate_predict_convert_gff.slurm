@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH --partition=shared
+#SBATCH -J funannotate
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=24
+#SBATCH --output funannotate_gff_conv.out
+#SBATCH --exclude=node117,node118
+
+module purge
+module load anaconda/colsa
+conda activate funannotate
+
+cd ~/Nf_annotate/
+
+srun funannotate predict -i funannotate_run/RepeatMasker/ref.fasta.masked.clean -s "Neonectria faginata" \
+    -o maker2_run/funann_conv \
+    --maker_gff makerFINAL.all.gff \
+    --cpus 24
+    
