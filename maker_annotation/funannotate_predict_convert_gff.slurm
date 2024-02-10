@@ -14,6 +14,6 @@ cd ~/Nf_annotate/
 
 srun funannotate predict -i funannotate_run/RepeatMasker/ref.fasta.masked.clean -s "Neonectria faginata" \
     -o maker2_run/funann_conv \
-    --maker_gff makerFINAL.all.gff \
+    --maker_gff maker2_run/makerFINAL.all.gff \
     --cpus 24
     
