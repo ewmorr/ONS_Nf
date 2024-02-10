@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --partition=shared
-#SBATCH -J funannotate
+#SBATCH -J eggnog
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=24
 #SBATCH --output eggnog.out
@@ -9,7 +9,7 @@
 module purge
 module load anaconda/colsa
 
-conda actviate eggnog-mapper-2.1.12
+conda activate eggnog-mapper-2.1.12
 
 #dbEggnog=/mnt/lz01/hcgs/shared/databases/eggnog-mapper
 
