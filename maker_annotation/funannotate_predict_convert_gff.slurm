@@ -12,8 +12,10 @@ conda activate funannotate
 
 cd ~/Nf_annotate/
 
+#sed -n '/##FASTA/q;p' makerFINAL.all.gff > makerFINAL.all.noFasta.gff
+
 srun funannotate predict -i funannotate_run/RepeatMasker/ref.fasta.masked.clean -s "Neonectria faginata" \
     -o maker2_run/funann_conv \
-    --maker_gff maker2_run/makerFINAL.all.gff \
+    --maker_gff maker2_run/makerFINAL.all.noFasta.gff \
     --cpus 24
     
