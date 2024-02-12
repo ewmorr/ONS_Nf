@@ -14,3 +14,9 @@ predict
 ```
 sbatch ~/repo/ONS_Nf/funannotate/funannotate_predict.slurm
 ```
+Also trying conversion of gff from maker. Need to rm fasta from gff and convert tig names to match genome file
+```
+cd Nf_annotate/maker2_run
+sed -n '/##FASTA/q;p' makerFINAL.all.gff > makerFINAL.all.noFasta.gff
+sed 's/_pilon//g' makerFINAL.all.noFasta.gff > makerFINAL.all.noFasta.gff.clean
+```
