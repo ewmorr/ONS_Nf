@@ -14,7 +14,7 @@ conda activate interproscan
 cd ~/Nf_annotate/funannotate_run/
 mkdir output_iprscan_prot
 
-srun emapper.py -i output_funann/predict_results/Neonectria_faginata.proteins.fa \
+srun interproscan -i output_funann/predict_results/Neonectria_faginata.proteins.fa \
     --cpu 24 \
     -f XML \
     -o output_iprscan_prot/ipr_out.xml
