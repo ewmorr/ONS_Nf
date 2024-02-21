@@ -6,6 +6,12 @@
 #SBATCH --output interproscan.out
 #SBATCH --exclude=node117,node118
 
+
+###########################
+#antismash instead run on web server
+#the conda env is broken and the online server runs fast
+###########################
+
 module purge
 module load anaconda/colsa
 
