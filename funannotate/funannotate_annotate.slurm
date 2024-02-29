@@ -8,7 +8,7 @@
 
 module purge
 module load anaconda/colsa
-conda activate funannotate
+conda activate funannotate_new
 
 cd ~/Nf_annotate/funannotate_run/
 
